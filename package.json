@@ -1,0 +1,31 @@
+{
+  "name": "yabluzo",
+  "version": "0.0.1",
+  "description": "A bot for msgroom",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NanderTGA/yabluzo.git"
+  },
+  "keywords": [
+    "msgroom",
+    "bot",
+    "msgroom-bot",
+    "windows96",
+    "windows-96",
+    "w96",
+    "win96"
+  ],
+  "author": "NanderTGA <65074195+NanderTGA@users.noreply.github.com> (https://nandertga.ddns.net/)",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/NanderTGA/yabluzo/issues"
+  },
+  "homepage": "https://github.com/NanderTGA/yabluzo#readme",
+  "dependencies": {
+    "msgroom": "^1.0.1"
+  }
+}
