@@ -54,13 +54,16 @@ client.commands["8ball"] = reply => {
     reply(choices[Math.floor(Math.random() * choices.length)]);
 };
 
-if (suggestionsWebhook) client.commands.suggest = (reply, ...args) => {
+client.commands.suggest = (reply, ...args) => {
     const suggestion = args.join(" ").trim();
     if (!suggestion || suggestion == "") return reply("Error: Please provide a suggestion.");
+    if (!suggestionsWebhook) return reply("Error: no suggestions webhook provided. Please tell the developer about this.");
 
-    // send to webhook here
+    suggestionsWebhook
+        .send(`Suggestion: ${suggestion}`)
+        .then( () => reply("Your suggestion has been submitted! Thank you for sending us your idea!") )
+        .catch( () => reply("Your suggestion could not be submitted. Please try again later."));
 };
-else client.commands.suggest = reply => reply("Error: no suggestions webhook provided. Please tell the developer about this.");
 
 await client.connect(undefined, undefined, process.env.YABLUZO_API_KEY);
 client.sendMessage("Hi there! I'm Yabluzo. For a list of commands, send `y!help`");
