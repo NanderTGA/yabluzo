@@ -1,6 +1,8 @@
 import Client from "msgroom";
 import dotenv from "dotenv";
 import { Webhook } from "minimal-discord-webhook-node";
+import { createRequire } from "node:module";
+const { version } = createRequire(import.meta.url)("../package.json") as { version: string };
 
 dotenv.config();
 
@@ -65,5 +67,8 @@ client.commands.suggest = (reply, ...args) => {
         .catch( () => reply("Your suggestion could not be submitted. Please try again later."));
 };
 
+client.commands.version = reply => reply(`Yabluzo ${version}`);
+
 await client.connect(undefined, undefined, process.env.YABLUZO_API_KEY);
 client.sendMessage("Hi there! I'm Yabluzo. For a list of commands, send `y!help`");
+console.log("Yabluzo has connected to msgroom successfully!");
