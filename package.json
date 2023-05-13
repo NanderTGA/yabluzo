@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/NanderTGA/yabluzo#readme",
   "dependencies": {
-    "msgroom": "^1.0.1"
+    "msgroom": "^1.1.0"
   },
   "devDependencies": {
     "ts-node": "^10.9.1"
