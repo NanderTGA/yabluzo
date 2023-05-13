@@ -2,7 +2,7 @@ import Client from "msgroom";
 import dotenv from "dotenv";
 import { Webhook } from "minimal-discord-webhook-node";
 
-dotenv.config({ path: "../.env" });
+dotenv.config();
 
 let suggestionsWebhook: Webhook | undefined;
 if (process.env.YABLUKO_SUGGESTIONS_WEBHOOK) suggestionsWebhook = new Webhook(process.env.YABLUKO_SUGGESTIONS_WEBHOOK);
