@@ -27,6 +27,8 @@
   },
   "homepage": "https://github.com/NanderTGA/yabluzo#readme",
   "dependencies": {
+    "dotenv": "^16.0.3",
+    "minimal-discord-webhook-node": "^1.0.0",
     "msgroom": "^1.1.0"
   },
   "devDependencies": {
