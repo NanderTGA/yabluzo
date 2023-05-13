@@ -1,6 +1,10 @@
 import Client from "msgroom";
 import dotenv from "dotenv";
 import { Webhook } from "minimal-discord-webhook-node";
+import { readdirSync } from "node:fs";
+
+import { DefaultFileExport } from "./types.js";
+
 import { createRequire } from "node:module";
 const { version } = createRequire(import.meta.url)("../package.json") as { version: string };
 
@@ -27,34 +31,17 @@ client.on("message", message => {
     if (monkey[message.content.toLowerCase()]) return client.sendMessage(monkey[message.content.toLowerCase()]);
 });
 
+async function addCommandsFromFile(file: string): Promise<void> {
+    const { default: defaultFileExports } = await import(`./commands/${file}.js`) as { default?: DefaultFileExport };
+    if (!defaultFileExports) throw new Error(`${file} doesn't have a default export. The default export should have the same type as client.commands`);
+
+    if (typeof defaultFileExports == "function") client.commands[defaultFileExports.name] = defaultFileExports;
+    else if (typeof defaultFileExports == "object") Object.assign(client.commands, defaultFileExports);
+}
+
+await Promise.all(readdirSync("./dist/commands").map( commandFile => addCommandsFromFile(commandFile.replace(/.(j|t)s$/, "")) ));
+
 client.commands.about = reply => reply("I'm Yabluzo, a bot developed by [NanderTGA](https://nandertga.ddns.net). Do you have any suggestions? Feel free to submit them using `y!suggest`!");
-
-client.commands["8ball"] = reply => {
-    const choices = [
-        "It is certian.",
-        "It is decidedly so.",
-        "Without a doubt.",
-        "Yes definitely.",
-        "You may rely on it.",
-        "As I see it, yes.",
-        "Most likely.",
-        "Outlook good.",
-        "Yes.",
-        "Signs point to yes.",
-        "Reply hazy, try again.",
-        "Ask again later.",
-        "Better not tell you now.",
-        "Cannot predict now.",
-        "Concentrate and ask again.",
-        "Don't count on it.",
-        "My reply is no.",
-        "My sources say no.",
-        "Outlook not so good.",
-        "Very doubtful.",
-    ];
-
-    reply(choices[Math.floor(Math.random() * choices.length)]);
-};
 
 client.commands.suggest = (reply, ...args) => {
     const suggestion = args.join(" ").trim();
@@ -64,7 +51,7 @@ client.commands.suggest = (reply, ...args) => {
     suggestionsWebhook
         .send(`Suggestion: ${suggestion}`)
         .then( () => reply("Your suggestion has been submitted! Thank you for sending us your idea!") )
-        .catch( () => reply("Your suggestion could not be submitted. Please try again later."));
+        .catch( () => reply("Your suggestion could not be submitted. Please try again later.") );
 };
 
 client.commands.version = reply => reply(`Yabluzo ${version}`);
