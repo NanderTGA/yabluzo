@@ -11,8 +11,8 @@ const { version } = createRequire(import.meta.url)("../package.json") as { versi
 dotenv.config();
 
 let suggestionsWebhook: Webhook | undefined;
-if (process.env.YABLUKO_SUGGESTIONS_WEBHOOK) suggestionsWebhook = new Webhook(process.env.YABLUKO_SUGGESTIONS_WEBHOOK);
-else console.warn("Environment variable YABLUKO_SUGGESTIONS_WEBHOOK not found, users will not be able to submit suggestions");
+if (process.env.YABLUZO_SUGGESTIONS_WEBHOOK) suggestionsWebhook = new Webhook(process.env.YABLUZO_SUGGESTIONS_WEBHOOK);
+else console.warn("Environment variable YABLUZO_SUGGESTIONS_WEBHOOK not found, users will not be able to submit suggestions");
 
 const client = new Client(`[y!] Yabluzo${process.env.YABLUZO_API_KEY ? "" : " [BOT]"}`, [ "y!" ]);
 
