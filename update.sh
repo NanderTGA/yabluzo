@@ -6,4 +6,5 @@ git reset --hard
 git pull
 npm i
 npm audit fix
+npm run build
 pm2 start yabluzo
