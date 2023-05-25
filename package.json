@@ -33,7 +33,7 @@
     "@ffflorian/icanhazdadjoke": "^2.2.4",
     "dotenv": "^16.0.3",
     "minimal-discord-webhook-node": "^1.0.0",
-    "msgroom": "^1.2.0",
+    "msgroom": "^1.3.0",
     "octokit": "^2.0.18"
   },
   "devDependencies": {
