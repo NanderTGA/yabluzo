@@ -1,7 +1,7 @@
 import { DefaultFileExport } from "../types";
 
 const commands: DefaultFileExport = {
-    "8ball": reply => {
+    "8ball": () => {
         const choices = [
             "It is certian.",
             "It is decidedly so.",
@@ -25,16 +25,16 @@ const commands: DefaultFileExport = {
             "Very doubtful.",
         ];
     
-        reply(choices[Math.floor(Math.random() * choices.length)]);
+        return choices[Math.floor(Math.random() * choices.length)];
     },
 
-    coin: reply => {
+    coin: () => {
         const choices = [
             "Heads.",
             "Tails.",
         ];
     
-        reply(choices[Math.floor(Math.random() * choices.length)]);
+        return choices[Math.floor(Math.random() * choices.length)];
     },
 };
 
