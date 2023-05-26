@@ -34,6 +34,7 @@ This version is ${versionStatus} compared to the code on [the github repo](https
         if (!suggestionsWebhook) return "Error: no suggestions webhook provided. Please tell the developer about this.";
     
         suggestionsWebhook
+            .setUsername(`Suggestion from ${"unknown user due to bad command framework"}`)
             .send(`Suggestion: ${suggestion}`)
             .then( () => reply("Your suggestion has been submitted! Thank you for sending us your idea!") )
             .catch( () => reply("Your suggestion could not be submitted. Please try again later.") );
