@@ -43,9 +43,7 @@ export async function getLatestCommitHash() {
 export default async function checkVersion(): Promise<"up-to-date" | "outdated" | "newer"> {
     const latestCommitHash = await getLatestCommitHash();
 
+    if (gitStatus) return "newer";
     if (gitHash == latestCommitHash) return "up-to-date";
-    //if (gitStatus) console.log(gitStatus);
-    console.log(gitStatus, !!gitStatus);
-    return "newer";
     return "outdated";
 }
