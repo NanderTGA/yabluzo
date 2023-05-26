@@ -18,10 +18,10 @@ const joke: DefaultFileExport = async (reply, subCommand, ...args) => {
             jokeResults += `\n[${jokeResult.id}](https://icanhazdadjoke.com/j/${jokeResult.id}): ${jokeResult.joke}`;
         });
     
-        return reply(jokeResults.trim());
+        return jokeResults.trim();
     } else joke = await icanhazdadjoke.api.getRandom();
     
-    return reply(`Joke [${joke.id}](https://icanhazdadjoke.com/j/${joke.id}):\n${joke.joke}`);
+    return `Joke [${joke.id}](https://icanhazdadjoke.com/j/${joke.id}):\n${joke.joke}`;
 };
 
 export default joke;
