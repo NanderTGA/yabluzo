@@ -10,8 +10,8 @@ dotenv.config();
 let suggestionsWebhook: Webhook | undefined;
 if (process.env.YABLUZO_SUGGESTIONS_WEBHOOK) suggestionsWebhook = new Webhook(process.env.YABLUZO_SUGGESTIONS_WEBHOOK);
 else console.warn("Environment variable YABLUZO_SUGGESTIONS_WEBHOOK not found, users will not be able to submit suggestions");
-if (process.env.DEV) console.info("Bot is running in dev mode!");
-if (process.env.DEV && process.env.YABLUZO_API_KEY) throw new Error("Please do not use an api key while in dev mode, exiting.");
+if (process.env.DEV == "true") console.info("Bot is running in dev mode!");
+if (process.env.DEV == "true" && process.env.YABLUZO_API_KEY) throw new Error("Please do not use an api key while in dev mode, exiting.");
 
 const client = new Client(`[y!] Yabluzo${process.env.YABLUZO_API_KEY ? "" : (process.env.DEV == "true" ? " [DEV]" : " [BOT]")}`, "y!");
 
