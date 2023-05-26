@@ -13,8 +13,10 @@ dotenv.config();
 let suggestionsWebhook: Webhook | undefined;
 if (process.env.YABLUZO_SUGGESTIONS_WEBHOOK) suggestionsWebhook = new Webhook(process.env.YABLUZO_SUGGESTIONS_WEBHOOK);
 else console.warn("Environment variable YABLUZO_SUGGESTIONS_WEBHOOK not found, users will not be able to submit suggestions");
+if (process.env.DEV) console.info("Bot is running in dev mode!");
+if (process.env.DEV && process.env.YABLUZO_API_KEY) throw new Error("Please do not use an api key while in dev mode, exiting.");
 
-const client = new Client(`[y!] Yabluzo${process.env.YABLUZO_API_KEY ? "" : " [BOT]"}`, [ "y!" ]);
+const client = new Client(`[y!] Yabluzo${process.env.YABLUZO_API_KEY ? "" : (process.env.DEV == "true" ? " [DEV]" : " [BOT]")}`, "y!");
 
 client.on("message", message => {
     if (message.id == client.userID) return;
@@ -58,4 +60,5 @@ client.commands.version = reply => reply(`Yabluzo ${version}`);
 
 await client.connect(undefined, undefined, process.env.YABLUZO_API_KEY);
 client.sendMessage("Hi there! I'm Yabluzo. For a list of commands, send `y!help`");
+if (process.env.DEV) client.sendMessage("This bot is a dev instanceof Yabluzo, expect bugs and unfinished work!");
 console.log("Yabluzo has connected to msgroom successfully!");
