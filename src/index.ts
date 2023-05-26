@@ -5,9 +5,6 @@ import { readdirSync } from "node:fs";
 
 import { DefaultFileExport } from "./types.js";
 
-import { createRequire } from "node:module";
-const { version } = createRequire(import.meta.url)("../package.json") as { version: string };
-
 dotenv.config();
 
 let suggestionsWebhook: Webhook | undefined;
@@ -43,8 +40,6 @@ async function addCommandsFromFile(file: string): Promise<void> {
 
 await Promise.all(readdirSync("./dist/commands").map( commandFile => addCommandsFromFile(commandFile.replace(/.(j|t)s$/, "")) ));
 
-client.commands.about = reply => reply("I'm Yabluzo, a bot developed by [NanderTGA](https://nandertga.ddns.net). Do you have any suggestions? Feel free to submit them using `y!suggest`!");
-
 client.commands.suggest = (reply, ...args) => {
     const suggestion = args.join(" ").trim();
     if (!suggestion || suggestion == "") return reply("Error: Please provide a suggestion.");
@@ -55,8 +50,6 @@ client.commands.suggest = (reply, ...args) => {
         .then( () => reply("Your suggestion has been submitted! Thank you for sending us your idea!") )
         .catch( () => reply("Your suggestion could not be submitted. Please try again later.") );
 };
-
-client.commands.version = reply => reply(`Yabluzo ${version}`);
 
 await client.connect(undefined, undefined, process.env.YABLUZO_API_KEY);
 client.sendMessage("Hi there! I'm Yabluzo. For a list of commands, send `y!help`");
