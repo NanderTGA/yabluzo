@@ -12,8 +12,14 @@ Do you have any suggestions? Feel free to submit them using \`y!suggest\`!`
     version: async reply => {
         reply("Checking version, please wait... (This command is being developed right now, this is just a preview of it)");
 
-        const versionStatus = await checkVersion();
-        return `Yabluzo version ${version} (${gitHash} at ${gitBranch})${process.env.DEV == "true" ? " (development instance)" : ""}. this version is `;
+        const versionStatus = await checkVersion()
+            .catch(reason => {
+                reply("Something went wrong during the version check", reason as string);
+                return "(information unavailable)";
+            });
+        
+        return `Yabluzo version ${version} (${gitHash} at ${gitBranch})${process.env.DEV == "true" ? " (development instance)" : ""}.
+This version is ${versionStatus} compared to the code on [the github repo](https://github.com/NanderTGA/yabluzo)`;
     },
 };
 
