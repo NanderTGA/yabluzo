@@ -30,8 +30,8 @@ This version is ${versionStatus} compared to the code on [the github repo](https
 
     suggest: (reply, ...args) => {
         const suggestion = args.join(" ").trim();
-        if (!suggestion || suggestion == "") return reply("Error: Please provide a suggestion.");
-        if (!suggestionsWebhook) return reply("Error: no suggestions webhook provided. Please tell the developer about this.");
+        if (!suggestion || suggestion == "") return "Error: Please provide a suggestion.";
+        if (!suggestionsWebhook) return "Error: no suggestions webhook provided. Please tell the developer about this.";
     
         suggestionsWebhook
             .send(`Suggestion: ${suggestion}`)
