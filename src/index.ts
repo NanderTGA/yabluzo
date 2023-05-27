@@ -22,7 +22,7 @@ async function addCommandsFromFile(file: string): Promise<void> {
     else if (typeof defaultFileExports == "object") Object.assign(client.commands, defaultFileExports);
 }
 
-const commandFiles = await readdir("./dist/commands");
+const commandFiles = await readdir(new URL("./commands", import.meta.url));
 await Promise.all(commandFiles.map( commandFile => addCommandsFromFile(commandFile.replace(/.(j|t)s$/, "")) ));
 
 await client.connect(undefined, undefined, process.env.YABLUZO_API_KEY);
