@@ -14,21 +14,6 @@ if (process.env.DEV == "true") {
 const prefix = process.env.DEV == "true" ? "yd!" : "y!";
 const client = new Client(`[${prefix}] Yabluzo${process.env.YABLUZO_API_KEY ? "" : (process.env.DEV == "true" ? " DEV" : " [BOT]")}`, prefix);
 
-client.on("message", message => {
-    if (message.id == client.userID) return;
-    const monkey: Record<string, string> = {
-        "hey"        : "hey",
-        "gn"         : "gn",
-        "gm"         : "gm",
-        "goodmorning": "goodmorning",
-        "goodnight"  : "goodnight",
-        "who's joe?" : "Joe mama",
-        "who's joe"  : "Joe mama",
-        "f"          : "Respect paid.",
-    };
-    if (monkey[message.content.toLowerCase()]) return client.sendMessage(monkey[message.content.toLowerCase()]);
-});
-
 async function addCommandsFromFile(file: string): Promise<void> {
     const { default: defaultFileExports } = await import(`./commands/${file}.js`) as { default?: DefaultFileExport };
     if (!defaultFileExports) throw new Error(`${file} doesn't have a default export. The default export should have the same type as client.commands`);
