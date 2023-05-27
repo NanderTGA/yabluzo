@@ -25,6 +25,7 @@ async function addCommandsFromFile(file: string): Promise<void> {
 const commandFiles = await readdir(new URL("./commands", import.meta.url));
 await Promise.all(commandFiles.map( commandFile => addCommandsFromFile(commandFile.replace(/.(j|t)s$/, "")) ));
 
+console.log("connecting...");
 await client.connect(undefined, undefined, process.env.YABLUZO_API_KEY);
 client.sendMessage("Hi there! I'm Yabluzo. For a list of commands, send `y!help`");
 if (process.env.DEV == "true") client.sendMessage("This bot is a dev instance of Yabluzo, expect bugs and unfinished work!");
