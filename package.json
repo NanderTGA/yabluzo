@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prestart": "npm run build",
-    "build": "npx tsc",
+    "build": "rimraf dist && npx tsc",
     "start": "node ."
   },
   "repository": {
@@ -37,6 +37,7 @@
     "octokit": "^2.0.18"
   },
   "devDependencies": {
+    "rimraf": "^5.0.1",
     "ts-node": "^10.9.1"
   }
 }
