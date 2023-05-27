@@ -1,6 +1,6 @@
 import Client from "msgroom";
 import dotenv from "dotenv";
-import { readdirSync } from "node:fs";
+import { readdir } from "node:fs/promises";
 
 import { DefaultFileExport } from "./types.js";
 
@@ -22,7 +22,8 @@ async function addCommandsFromFile(file: string): Promise<void> {
     else if (typeof defaultFileExports == "object") Object.assign(client.commands, defaultFileExports);
 }
 
-await Promise.all(readdirSync("./dist/commands").map( commandFile => addCommandsFromFile(commandFile.replace(/.(j|t)s$/, "")) ));
+const commandFiles = await readdir("./dist/commands");
+await Promise.all(commandFiles.map( commandFile => addCommandsFromFile(commandFile.replace(/.(j|t)s$/, "")) ));
 
 await client.connect(undefined, undefined, process.env.YABLUZO_API_KEY);
 client.sendMessage("Hi there! I'm Yabluzo. For a list of commands, send `y!help`");
