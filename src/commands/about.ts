@@ -2,9 +2,9 @@ import { DefaultFileExport } from "../types";
 import checkVersion, { gitHash, gitBranch } from "../utils/version.js";
 
 import { createRequire } from "node:module";
-const { version } = createRequire(import.meta.url)("../../package.json") as { version: string };
+const { version, dependencies: { msgroom: msgroomVersion } } = createRequire(import.meta.url)("../../package.json") as typeof import("../../package.json");
 
-import { Webhook } from "minimal-discord-webhook-node";
+import { Webhook } from "minimal-discord-webhook-node"; // I had to override the types because the provided ones are wrong
 
 let suggestionsWebhook: Webhook | undefined;
 if (process.env.YABLUZO_SUGGESTIONS_WEBHOOK) suggestionsWebhook = new Webhook(process.env.YABLUZO_SUGGESTIONS_WEBHOOK);
@@ -25,7 +25,8 @@ Do you have any suggestions? Feel free to submit them using \`y!suggest\`!`
             });
         
         return `Yabluzo version ${version} ([${gitHash}](https://github.com/NanderTGA/yabluzo/commit/${gitHash}) at [${gitBranch}](https://github.com/NanderTGA/yabluzo/tree/${gitBranch}))${process.env.DEV == "true" ? " (development instance)" : ""}.
-This version is ${versionStatus} compared to the code on [the github repo](https://github.com/NanderTGA/yabluzo)`;
+This version is ${versionStatus} compared to the code on [the github repo](https://github.com/NanderTGA/yabluzo).
+Running [msgroom](https://www.npmjs.com/package/msgroom) v${msgroomVersion}.`;
     },
 
     suggest: (reply, ...args) => {
