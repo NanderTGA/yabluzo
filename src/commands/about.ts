@@ -34,11 +34,11 @@ Running [msgroom](https://www.npmjs.com/package/msgroom) v${msgroomVersion}.`;
         if (!suggestion || suggestion == "") return "Error: Please provide a suggestion.";
         if (!suggestionsWebhook) return "Error: no suggestions webhook provided. Please tell the developer about this.";
     
-        suggestionsWebhook
+        return suggestionsWebhook
             .setUsername(`Suggestion from ${"unknown user due to bad command framework"}`)
             .send(`Suggestion: ${suggestion}`)
-            .then( () => reply("Your suggestion has been submitted! Thank you for sending us your idea!") )
-            .catch( () => reply("Your suggestion could not be submitted. Please try again later.") );
+            .then( () => "Your suggestion has been submitted! Thank you for sending us your idea!")
+            .catch( () => "Your suggestion could not be submitted. Please try again later.");
     },
 };
 
