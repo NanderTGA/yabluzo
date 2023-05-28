@@ -1,5 +1,6 @@
 module.exports = {
     extends: "@nandertga/eslint-config",
+    root   : true,
     env    : {
         "browser" : false,
         "commonjs": false,
