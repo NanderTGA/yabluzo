@@ -25,6 +25,11 @@ async function addCommandsFromFile(file: string): Promise<void> {
 const commandFiles = await readdir(new URL("./commands", import.meta.url));
 await Promise.all(commandFiles.map( commandFile => addCommandsFromFile(commandFile.replace(/.(j|t)s$/, "")) ));
 
+client.commands.isBlocked = (reply, userOrSessionID) => {
+    const blocked = client.isBlocked(userOrSessionID, userOrSessionID);
+    return `The ID or session ID \`${userOrSessionID}\` is${blocked ? "" : " not"} blocked.`;
+};
+
 console.log("connecting...");
 await client.connect(undefined, undefined, process.env.YABLUZO_API_KEY);
 client.sendMessage("Hi there! I'm Yabluzo. For a list of commands, send `y!help`");
