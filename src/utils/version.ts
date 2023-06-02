@@ -28,3 +28,9 @@ export default async function checkVersion(): Promise<"up-to-date" | "outdated" 
     if (gitHash == latestCommitHash) return "up-to-date";
     return "outdated";
 }
+
+/**
+ * - detect uncommited changes
+ * - detect unpushed commits
+ * - if the branch is not master, check the difference between master and current branch
+ */
