@@ -2,7 +2,10 @@ import { DefaultFileExport } from "../types";
 import checkVersion, { gitHash, gitBranch } from "../utils/version.js";
 
 import { createRequire } from "node:module";
-const { version, dependencies: { msgroom: msgroomVersion } } = createRequire(import.meta.url)("../../package.json") as typeof import("../../package.json");
+const require = createRequire(import.meta.url);
+const { version } = require("../../package.json") as typeof import("../../package.json");
+const { packages: { "node_modules/msgroom": { version: msgroomVersion } } } = require("../../package-lock.json") as typeof import("../../package-lock.json");
+
 
 import { Webhook } from "minimal-discord-webhook-node"; // I had to override the types because the provided ones are wrong
 
