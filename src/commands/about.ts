@@ -43,6 +43,8 @@ Running [msgroom](https://www.npmjs.com/package/msgroom) v${msgroomVersion}.`;
             .then( () => "Your suggestion has been submitted! Thank you for sending us your idea!")
             .catch( () => "Your suggestion could not be submitted. Please try again later.");
     },
+
+    "": () => "Run `y!help` for a list of commands.",
 };
 
 export default commands;
