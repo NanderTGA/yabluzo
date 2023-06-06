@@ -1,7 +1,7 @@
 import child from "child_process";
 import { Octokit } from "octokit";
 
-const octokit = new Octokit();
+const octokit = new Octokit({ auth: process.env.GITHUB_PERSONAL_ACCESS_TOKEN });
 
 // These values don't change while running, so we only run this once.
 export const gitHash = child.execSync("git rev-parse HEAD").toString().trim();
