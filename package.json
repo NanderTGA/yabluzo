@@ -34,7 +34,8 @@
     "dotenv": "^16.0.3",
     "minimal-discord-webhook-node": "^1.0.0",
     "msgroom": "^1.3.2",
-    "octokit": "^2.0.19"
+    "octokit": "^2.0.19",
+    "random": "^4.1.0"
   },
   "devDependencies": {
     "@nandertga/eslint-config": "^1.0.1",
