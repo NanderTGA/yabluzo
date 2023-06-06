@@ -1,5 +1,17 @@
 import { DefaultFileExport } from "../types";
 
+import random from "random";
+const { integer: randomInteger, float: randomFloat } = random;
+
+export function randomValueFromArray<T>(array: T[]): T;
+export function randomValueFromArray(array: string): string;
+export function randomValueFromArray<T>(array: T[] | string): T | string {
+    const randomIndex = randomInteger(0, array.length - 1);
+    const randomValue = array[randomIndex];
+
+    return randomValue;
+}
+
 const commands: DefaultFileExport = {
     "8ball": () => {
         const choices = [
@@ -25,7 +37,7 @@ const commands: DefaultFileExport = {
             "Very doubtful.",
         ];
     
-        return choices[Math.floor(Math.random() * choices.length)];
+        return randomValueFromArray(choices);
     },
 
     coin: () => {
@@ -34,7 +46,27 @@ const commands: DefaultFileExport = {
             "Tails.",
         ];
     
-        return choices[Math.floor(Math.random() * choices.length)];
+        return randomValueFromArray(choices);
+    },
+
+    random: (reply, minimumAsString, maximumAsString) => {
+        const minimum = parseFloat(minimumAsString);
+        const maximum = parseFloat(maximumAsString);
+
+        const isFloat = !Number.isInteger(minimum)
+                        || !Number.isInteger(maximum)
+                        || minimumAsString.includes(".")
+                        || maximumAsString.includes(".");
+        const randomFunction = isFloat ? randomFloat : randomInteger;
+
+        const random = randomFunction(minimum, maximum);
+        return random.toString();
+    },
+
+    dice: (reply, maximumAsString = "6") => {
+        const maximum = parseInt(maximumAsString);
+        const random = randomInteger(1, maximum);
+        return random.toString();
     },
 };
 
