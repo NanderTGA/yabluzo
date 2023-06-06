@@ -32,6 +32,6 @@ client.commands.isBlocked = (reply, userOrSessionID) => {
 
 console.log("connecting...");
 await client.connect(undefined, undefined, process.env.YABLUZO_API_KEY);
-client.sendMessage("Hi there! I'm Yabluzo. For a list of commands, send `y!help`");
+client.sendMessage(`Hi there! I'm Yabluzo. For a list of commands, send \`${prefix}help\``);
 if (process.env.DEV == "true") client.sendMessage("This bot is a dev instance of Yabluzo, expect bugs and unfinished work!");
 console.log("Yabluzo has connected to msgroom successfully!");
