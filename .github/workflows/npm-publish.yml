@@ -21,7 +21,7 @@ jobs:
       - run: npm pack
       - uses: actions/upload-artifact@v3.1.2
         with:
-          path: msgroom-*.tgz
+          path: *.tgz
 
   publish-npm:
     permissions:
