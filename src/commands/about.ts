@@ -1,5 +1,5 @@
 import { DefaultFileExport } from "../types";
-import checkVersion, { gitHash, gitBranch } from "../utils/version.js";
+import checkVersion, { gitHash, gitBranch, checkMsgroomVersion } from "../utils/version.js";
 
 import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
@@ -21,15 +21,13 @@ Do you have any suggestions? Feel free to submit them using \`y!suggest\`!`
     version: async reply => {
         reply("Checking version, please wait...");
 
-        const versionStatus = await checkVersion()
-            .catch(reason => {
-                reply("Something went wrong during the version check", reason as string);
-                return "(information unavailable)";
-            });
+        const versionStatus = await checkVersion();
+        const msgroomStatus = await checkMsgroomVersion(msgroomVersion);
         
         return `Yabluzo version ${version} ([${gitHash}](https://github.com/NanderTGA/yabluzo/commit/${gitHash}) at [${gitBranch}](https://github.com/NanderTGA/yabluzo/tree/${gitBranch}))${process.env.DEV == "true" ? " (development instance)" : ""}.
 This version is ${versionStatus} compared to the code on [the github repo](https://github.com/NanderTGA/yabluzo).
-Running [msgroom](https://www.npmjs.com/package/msgroom) v${msgroomVersion}.`;
+
+Running [msgroom](https://www.npmjs.com/package/msgroom) v${msgroomVersion}.${msgroomStatus.upToDateStatus == "outdated" ? `\nThere is a new version of msgroom available! (v${msgroomStatus.latestVersion})` : ""}`;
     },
 
     suggest: (reply, ...args) => {

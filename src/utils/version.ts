@@ -1,5 +1,6 @@
 import child from "child_process";
 import { Octokit } from "octokit";
+import { gt as semverGreaterThan, lt as semverLessThan } from "semver";
 
 const octokit = new Octokit({ auth: process.env.GITHUB_PERSONAL_ACCESS_TOKEN });
 
@@ -21,12 +22,38 @@ export async function getLatestCommitHash() {
     return latestCommit.data.sha;
 }
 
-export default async function checkVersion(): Promise<"up-to-date" | "outdated" | "newer"> {
-    const latestCommitHash = await getLatestCommitHash();
+type UpToDateStatus = "up-to-date" | "outdated" | "newer" | "[INFORMATION UNAVAILABLE]";
+
+export default async function checkVersion(): Promise<UpToDateStatus> {
+    let latestCommitHash;
+    try {
+        latestCommitHash = await getLatestCommitHash();
+    } catch {
+        return "[INFORMATION UNAVAILABLE]";
+    }
 
     if (gitStatus) return "newer";
     if (gitHash == latestCommitHash) return "up-to-date";
     return "outdated";
+}
+
+export async function checkMsgroomVersion(currentVersion: string): Promise<{
+    latestVersion: string,
+    upToDateStatus: UpToDateStatus
+}> {
+    let latestVersion;
+    try {
+        const latestPackageJSON = await fetch("https://registry.npmjs.org/msgroom/latest").then( response => response.json() ) as typeof import("msgroom/package.json");
+        latestVersion = latestPackageJSON.version;
+    } catch {
+        return { latestVersion: "[INFORMATION UNAVAILABLE]", upToDateStatus: "[INFORMATION UNAVAILABLE]" };
+    }
+
+    if (currentVersion == latestVersion) return { latestVersion, upToDateStatus: "up-to-date" };
+    if (semverLessThan(currentVersion, latestVersion)) return { latestVersion, upToDateStatus: "outdated" };
+    if (semverGreaterThan(currentVersion, latestVersion)) return { latestVersion, upToDateStatus: "newer" };
+
+    throw new Error("This code can never run");
 }
 
 /**
