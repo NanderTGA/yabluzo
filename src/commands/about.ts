@@ -43,6 +43,9 @@ Running [msgroom](https://www.npmjs.com/package/msgroom) v${msgroomVersion}.${ms
     },
 
     "": () => "Run `y!help` for a list of commands.",
+
+    source: () => `Yabluzo's source code can be found [here](https://github.com/NanderTGA/yabluzo)
+Do you want to make your own bot? Yabluzo uses [msgroom](https://npmjs.com/package/msgroom).`,
 };
 
 export default commands;
