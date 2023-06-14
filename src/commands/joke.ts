@@ -21,7 +21,7 @@ const commands: DefaultFileExport = {
 
         search: async (reply, ...searchTerm) => {
             const limit = 10;
-            const searchResult = await icanhazdadjoke.api.search({ term: searchTerm.join(" "), limit });
+            const searchResult = await icanhazdadjoke.api.search(searchTerm.join(" "), { limit });
             
             let jokeResults = `**Page ${searchResult.current_page}/${searchResult.total_pages}, showing first ${limit} results of ${searchResult.total_jokes}**`;
     
@@ -29,10 +29,6 @@ const commands: DefaultFileExport = {
                 if (index >= 10) return;
                 jokeResults += `\n[${joke.id}](https://icanhazdadjoke.com/j/${joke.id}): ${joke.joke}`;
             });
-
-            if (searchResult.total_jokes > 700) reply(`There currently is a bug in the library we use to handle icanhazdadjoke.com api calls.
-Due to this bug, your search terms will be ignored.
-We have submitted [a pull request](https://github.com/ffflorian/api-clients/pull/1354) to the library to fix this and apologize for the inconvenience.`);
     
             return jokeResults.trim();
         },

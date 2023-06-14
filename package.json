@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/NanderTGA/yabluzo#readme",
   "dependencies": {
-    "@ffflorian/icanhazdadjoke": "^2.2.4",
+    "@ffflorian/icanhazdadjoke": "^2.2.5",
     "dotenv": "^16.0.3",
     "minimal-discord-webhook-node": "^1.0.0",
     "msgroom": "^1.4.0",
