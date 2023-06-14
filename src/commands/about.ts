@@ -44,6 +44,8 @@ Running [msgroom](https://www.npmjs.com/package/msgroom) v${msgroomVersion}.${ms
 
     source: () => `Yabluzo's source code can be found [here](https://github.com/NanderTGA/yabluzo)
 Do you want to make your own bot? Yabluzo uses [msgroom](https://npmjs.com/package/msgroom).`,
+
+    discord: () => `You can join NanderTGA's discord server [here](https://discord.com/invite/YRHpTvV)`,
 };
 
 export default commands;
