@@ -53,6 +53,8 @@ const commands: DefaultFileExport = {
         const minimum = parseFloat(minimumAsString);
         const maximum = parseFloat(maximumAsString);
 
+        if (!minimum || !maximum) return "Please specify a minimum and a maximum number.";
+
         const isFloat = !Number.isInteger(minimum)
                         || !Number.isInteger(maximum)
                         || minimumAsString.includes(".")
