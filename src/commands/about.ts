@@ -31,11 +31,13 @@ Running [msgroom](https://www.npmjs.com/package/msgroom) v${msgroomVersion}.${ms
     },
 
     suggest: (reply, ...args) => {
+        return `Suggestions have been disabled due to abuse. We will re-enable them in the future.
+For more information please see [this issue](https://github.com/NanderTGA/yabluzo/issues/8)`;
         const suggestion = args.join(" ").trim();
         if (!suggestion || suggestion == "") return "Error: Please provide a suggestion.";
         if (!suggestionsWebhook) return "Error: no suggestions webhook provided. Please tell the developer about this.";
     
-        return suggestionsWebhook
+        return (suggestionsWebhook as Webhook)
             .setUsername(`Suggestion from ${"unknown user due to bad command framework"}`)
             .send(`Suggestion: ${suggestion}`)
             .then( () => "Your suggestion has been submitted! Thank you for sending us your idea!")
