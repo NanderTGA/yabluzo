@@ -48,6 +48,12 @@ For more information please see [this issue](https://github.com/NanderTGA/yabluz
 Do you want to make your own bot? Yabluzo uses [msgroom](https://npmjs.com/package/msgroom).`,
 
     discord: () => `You can join NanderTGA's discord server [here](https://discord.com/invite/YRHpTvV)`,
+
+    faq: () => `
+**Who is SpamHook [BOT]?**
+[SpamHook](https://replit.com/@replDestroyer1234/spamhook#index.js) is a bot created by æ to log all messages to a discord server of them.
+It is hosted on [Replit](https://replit.com) and frequently stops because of Replit automatically stopping REPLs after a certain period of time.
+    `.trim(),
 };
 
 export default commands;
