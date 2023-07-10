@@ -36,7 +36,7 @@
     "msgroom": "^1.4.1",
     "octokit": "^2.1.0",
     "random": "^4.1.0",
-    "semver": "^7.5.3"
+    "semver": "^7.5.4"
   },
   "devDependencies": {
     "@nandertga/eslint-config": "^1.0.1",
