@@ -31,19 +31,19 @@
   "homepage": "https://github.com/NanderTGA/yabluzo#readme",
   "dependencies": {
     "@ffflorian/icanhazdadjoke": "^2.2.5",
-    "dotenv": "^16.3.0",
+    "dotenv": "^16.3.1",
     "minimal-discord-webhook-node": "^1.0.0",
     "msgroom": "^1.4.1",
-    "octokit": "^2.0.21",
+    "octokit": "^2.1.0",
     "random": "^4.1.0",
-    "semver": "^7.5.2"
+    "semver": "^7.5.3"
   },
   "devDependencies": {
     "@nandertga/eslint-config": "^1.0.1",
     "@types/semver": "^7.5.0",
-    "@typescript-eslint/eslint-plugin": "^5.59.11",
-    "@typescript-eslint/parser": "^5.59.11",
-    "eslint": "^8.42.0",
+    "@typescript-eslint/eslint-plugin": "^5.61.0",
+    "@typescript-eslint/parser": "^5.61.0",
+    "eslint": "^8.44.0",
     "eslint-plugin-jsdoc": "^44.2.7",
     "eslint-plugin-jsonc": "^2.9.0",
     "jsonc-eslint-parser": "^2.3.0",
