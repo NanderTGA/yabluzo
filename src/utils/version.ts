@@ -22,7 +22,7 @@ export async function getLatestCommitHash() {
     return latestCommit.data.sha;
 }
 
-type UpToDateStatus = "up-to-date" | "outdated" | "newer" | "[INFORMATION UNAVAILABLE]";
+export type UpToDateStatus = "up-to-date" | "outdated" | "newer" | "[INFORMATION UNAVAILABLE]";
 
 export default async function checkVersion(): Promise<UpToDateStatus> {
     let latestCommitHash;
