@@ -5,9 +5,10 @@ import { gt as semverGreaterThan, lt as semverLessThan } from "semver";
 const octokit = new Octokit({ auth: process.env.GITHUB_PERSONAL_ACCESS_TOKEN });
 
 // These values don't change while running, so we only run this once.
-export const gitHash = child.execSync("git rev-parse HEAD").toString().trim();
-export const gitBranch = child.execSync("git rev-parse --abbrev-ref HEAD").toString().trim();
-export const gitStatus = child.execSync("git status --porcelain").toString().trim();
+export const getOutput = (command: string) => child.execSync(command, { encoding: "utf-8" }).trim();
+export const gitHash = getOutput("git rev-parse HEAD");
+export const gitBranch = getOutput("git rev-parse --abbrev-ref HEAD");
+export const gitStatus = getOutput("git status --porcelain");
 
 export async function getCommit(ref: string) {
     return await octokit.request("GET /repos/{owner}/{repo}/commits/{ref}", {
