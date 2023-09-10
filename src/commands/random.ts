@@ -1,21 +1,15 @@
-import { DefaultFileExport } from "../types";
+import { CommandMap, ModuleInitializeFunction } from "msgroom/dist/types/types.js";
 
 import random from "random";
 const { integer: randomInteger, float: randomFloat } = random;
+const randomValueFromArray = random.choice.bind(random);
 
-export function randomValueFromArray<T>(array: T[]): T;
-export function randomValueFromArray(array: string): string;
-export function randomValueFromArray<T>(array: T[] | string): T | string {
-    const randomIndex = randomInteger(0, array.length - 1);
-    const randomValue = array[randomIndex];
-
-    return randomValue;
-}
-
-const commands: DefaultFileExport = {
-    "8ball": () => {
-        const choices = [
-            "It is certian.",
+const initialize: ModuleInitializeFunction = client => ({
+    "8ball": {
+        description: "Ask me a question and I'll tell you what I think about it.",
+        aliases    : [ [ "ask" ] ],
+        handler    : () => randomValueFromArray([
+            "It is certain.",
             "It is decidedly so.",
             "Without a doubt.",
             "Yes definitely.",
@@ -35,41 +29,48 @@ const commands: DefaultFileExport = {
             "My sources say no.",
             "Outlook not so good.",
             "Very doubtful.",
-        ];
-    
-        return randomValueFromArray(choices);
+        ]),
     },
 
-    coin: () => {
-        const choices = [
+    coin: {
+        description: "Flip a coin.",
+        aliases    : [ [ "flipACoin" ] ],
+        handler    : () => randomValueFromArray([
             "Heads.",
             "Tails.",
-        ];
-    
-        return randomValueFromArray(choices);
+        ]),
     },
 
-    random: (reply, minimumAsString, maximumAsString) => {
-        const minimum = parseFloat(minimumAsString);
-        const maximum = parseFloat(maximumAsString);
+    random: {
+        description: "Gives you a random number. Supports decimals!",
+        aliases    : [ [ "randomNumber" ] ],
+        handler    : (context, minimumAsString, maximumAsString) => {
+            const minimum = parseFloat(minimumAsString);
+            const maximum = parseFloat(maximumAsString);
 
-        if (!minimum || !maximum) return "Please specify a minimum and a maximum number.";
+            if (!minimum || !maximum) return "Please specify a minimum and a maximum number.";
 
-        const isFloat = !Number.isInteger(minimum)
+            const isFloat = !Number.isInteger(minimum)
                         || !Number.isInteger(maximum)
                         || minimumAsString.includes(".")
                         || maximumAsString.includes(".");
-        const randomFunction = isFloat ? randomFloat : randomInteger;
+            const randomFunction = isFloat ? randomFloat : randomInteger;
 
-        const random = randomFunction(minimum, maximum);
-        return random.toString();
+            const random = randomFunction(minimum, maximum);
+            return random.toString();
+        },
     },
 
-    dice: (reply, maximumAsString = "6") => {
-        const maximum = parseInt(maximumAsString);
-        const random = randomInteger(1, maximum);
-        return random.toString();
-    },
-};
+    dice: {
+        description: "Rolls a dice. You can also change how many sides the dice has!",
+        aliases    : [ [ "rollADice" ] ],
+        handler    : (reply, maximumAsString = "6") => {
+            const maximum = maximumAsString.toLowerCase() == "munchkin" ? 20 : parseInt(maximumAsString);
 
-export default commands;
+            const random = randomInteger(1, maximum);
+            return random.toString();
+        },
+    },
+} satisfies CommandMap);
+
+export default initialize;

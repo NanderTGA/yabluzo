@@ -1,5 +1,5 @@
-import { DefaultFileExport } from "../types";
 import checkVersion, { gitHash, gitBranch, checkMsgroomVersion } from "../utils/version.js";
+import type { CommandMap, ModuleInitializeFunction } from "msgroom/dist/types/types.js";
 
 import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
@@ -7,53 +7,49 @@ const { version } = require("../../package.json") as typeof import("../../packag
 const { packages: { "node_modules/msgroom": { version: msgroomVersion } } } = require("../../package-lock.json") as typeof import("../../package-lock.json");
 
 
-import { Webhook } from "minimal-discord-webhook-node"; // I had to override the types because the provided ones are wrong
-
-let suggestionsWebhook: Webhook | undefined;
-if (process.env.YABLUZO_SUGGESTIONS_WEBHOOK) suggestionsWebhook = new Webhook(process.env.YABLUZO_SUGGESTIONS_WEBHOOK);
-else console.warn("Environment variable YABLUZO_SUGGESTIONS_WEBHOOK not found, users will not be able to submit suggestions");
-
-const commands: DefaultFileExport = {
-    about: () => `I'm Yabluzo, a bot developed by [NanderTGA](https://nandertga.ddns.net).
-Do you have any suggestions? Feel free to submit them using \`y!suggest\`!`
-+ (process.env.DEV == "true" ? "\n**This bot is a development instance of Yabluzo, expect bugs and unfinished work!**" : ""),
-
-    version: async reply => {
-        reply("Checking version, please wait...");
-
-        const versionStatus = await checkVersion();
-        const msgroomStatus = await checkMsgroomVersion(msgroomVersion);
-        
-        return `Yabluzo version ${version} ([${gitHash}](https://github.com/NanderTGA/yabluzo/commit/${gitHash}) at [${gitBranch}](https://github.com/NanderTGA/yabluzo/tree/${gitBranch}))${process.env.DEV == "true" ? " (development instance)" : ""}.
-This version is ${versionStatus} compared to the code on [the github repo](https://github.com/NanderTGA/yabluzo).
-
-Running [msgroom](https://www.npmjs.com/package/msgroom) v${msgroomVersion}.${msgroomStatus.upToDateStatus == "outdated" ? `\nThere is a new version of msgroom available! (v${msgroomStatus.latestVersion})` : ""}`;
+const initialize: ModuleInitializeFunction = client => ({
+    about: {
+        description: "Tells you more about this bot.",
+        handler    : () => `I'm Yabluzo, a bot developed by [NanderTGA](https://nandertga.ddns.net).
+                            Do you have any suggestions? Feel free to let us know in our Discord server or open an issue!`
+        + (process.env.DEV == "true" ? "\n**This bot is a development instance of Yabluzo, expect bugs and unfinished work!**" : ""),
     },
 
-    suggest: (reply, ...args) => {
-        return `Suggestions have been disabled due to abuse. We will re-enable them in the future.
-For more information please see [this issue](https://github.com/NanderTGA/yabluzo/issues/8)`;
-        const suggestion = args.join(" ").trim();
-        if (!suggestion || suggestion == "") return "Error: Please provide a suggestion.";
-        if (!suggestionsWebhook) return "Error: no suggestions webhook provided. Please tell the developer about this.";
+    version: {
+        description: "Shows version information.",
+        handler    : async context => {
+            context.send("Checking version, please wait...");
     
-        return (suggestionsWebhook as Webhook)
-            .setUsername(`Suggestion from ${"unknown user due to bad command framework"}`)
-            .send(`Suggestion: ${suggestion}`)
-            .then( () => "Your suggestion has been submitted! Thank you for sending us your idea!")
-            .catch( () => "Your suggestion could not be submitted. Please try again later.");
+            const [ versionStatus, msgroomStatus ] = await Promise.all([ checkVersion(), checkMsgroomVersion(msgroomVersion) ]);
+
+            const commit = `[${gitHash}](https://github.com/NanderTGA/yabluzo/commit/${gitHash})`;
+            const branch = `[${gitBranch}](https://github.com/NanderTGA/yabluzo/tree/${gitBranch})`;
+            const msgroomUpdateAvailable = msgroomStatus.upToDateStatus == "outdated" ? `\nThere is a new version of msgroom available! (v${msgroomStatus.latestVersion})` : "";
+            
+            return `Yabluzo version ${version} (${commit} at ${branch}) ${process.env.DEV == "true" ? "(development instance)" : ""}.
+                    This version is ${versionStatus} compared to the code on [the github repo](https://github.com/NanderTGA/yabluzo).
+
+                    Running [msgroom](https://www.npmjs.com/package/msgroom) v${msgroomVersion}.${msgroomUpdateAvailable}`;
+        },
     },
 
-    source: () => `Yabluzo's source code can be found [here](https://github.com/NanderTGA/yabluzo)
-Do you want to make your own bot? Yabluzo uses [msgroom](https://npmjs.com/package/msgroom).`,
+    discord: {
+        description: "Join our discord server.",
+        handler    : () => `You can join NanderTGA's discord server [here](https://discord.com/invite/YRHpTvV)`,
+    },
 
-    discord: () => `You can join NanderTGA's discord server [here](https://discord.com/invite/YRHpTvV)`,
+    source: {
+        description: "View Yabluzo's source code.",
+        handler    : () => `Yabluzo's source code can be found [here](https://github.com/NanderTGA/yabluzo)
+                            Do you want to make your own bot? Yabluzo uses [msgroom](https://npmjs.com/package/msgroom).`,
+    },
 
-    faq: () => `
-**Who is SpamHook [BOT]?**
-[SpamHook](https://replit.com/@replDestroyer1234/spamhook#index.js) is a bot created by æ to log all messages to a discord server of them.
-It is hosted on [Replit](https://replit.com) and frequently stops because of Replit automatically stopping REPLs after a certain period of time.
-    `.trim(),
-};
+    funFact: {
+        description: "Tells you a fun fact.",
+        handler    : () => `**Who is SpamHook [BOT]?**
+                            [SpamHook](https://replit.com/@replDestroyer1234/spamhook#index.js) is a bot created by æ to log all messages to a discord server of them.
+                            It is hosted on [Replit](https://replit.com) and frequently stops because of Replit automatically stopping REPLs after a certain period of time.`,
+    },
+} satisfies CommandMap);
 
-export default commands;
+export default initialize;
