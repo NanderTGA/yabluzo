@@ -29,8 +29,9 @@ const initialize: ModuleInitializeFunction = client => ({
             handler    : async (context, ...searchTerm) => {
                 const limit = 10;
                 const searchResult = await icanhazdadjoke.api.search(searchTerm.join(" "), { limit });
+                const shownResults = searchResult.total_jokes >= limit ? limit : searchResult.total_jokes;
                 
-                let jokeResults = `**Page ${searchResult.current_page}/${searchResult.total_pages}, showing first ${limit} results of ${searchResult.total_jokes}**`;
+                let jokeResults = `**Page ${searchResult.current_page}/${searchResult.total_pages}, showing first ${shownResults} results of ${searchResult.total_jokes}**`;
         
                 searchResult.results.forEach( (joke, index) => {
                     if (index >= 10) return;
