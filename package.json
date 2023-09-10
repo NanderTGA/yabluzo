@@ -41,8 +41,8 @@
   },
   "devDependencies": {
     "@nandertga/eslint-config": "^3.1.1",
-    "@types/semver": "^7.5.0",
-    "eslint": "^8.44.0",
+    "@types/semver": "^7.5.1",
+    "eslint": "^8.48.0",
     "rimraf": "^5.0.1",
     "typescript": "5.2.2"
   }
