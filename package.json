@@ -33,7 +33,7 @@
   "dependencies": {
     "@ffflorian/icanhazdadjoke": "^2.2.5",
     "dotenv": "^16.3.1",
-    "minimal-discord-webhook-node": "^1.0.0",
+    "minimal-discord-webhook-node": "^1.0.1",
     "msgroom": "^2.0.0-4",
     "octokit": "^2.1.0",
     "random": "^4.1.0",
