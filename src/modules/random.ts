@@ -1,4 +1,4 @@
-import { CommandMap, ModuleInitializeFunction } from "msgroom/dist/types/types.js";
+import { CommandMap, ModuleInitializeFunction } from "msgroom/types";
 
 import random from "random";
 const { integer: randomInteger, float: randomFloat } = random;

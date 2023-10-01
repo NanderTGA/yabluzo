@@ -1,5 +1,5 @@
 import { ICanHazDadJoke, JokeResult } from "@ffflorian/icanhazdadjoke";
-import type { CommandWithName, ModuleInitializeFunction } from "msgroom/dist/types/types.js";
+import type { CommandWithName, ModuleInitializeFunction } from "msgroom/types";
 
 const icanhazdadjoke = new ICanHazDadJoke();
 

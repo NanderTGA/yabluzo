@@ -1,5 +1,5 @@
 import checkVersion, { gitHash, gitBranch, checkMsgroomVersion } from "../utils/version.js";
-import type { CommandMap, ModuleInitializeFunction } from "msgroom/dist/types/types.js";
+import type { CommandMap, ModuleInitializeFunction } from "msgroom/types";
 
 import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
