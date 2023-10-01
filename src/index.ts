@@ -22,7 +22,7 @@ client.commands.isBlocked = {
 };
 
 console.log("Loading modules...");
-await client.addCommandsFromDirectory(new URL("./commands", import.meta.url));
+await client.addCommandsFromDirectory(new URL("./modules", import.meta.url));
 
 console.log("connecting...");
 await client.connect();

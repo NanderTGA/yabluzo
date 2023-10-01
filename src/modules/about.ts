@@ -29,7 +29,7 @@ const initialize: ModuleInitializeFunction = client => ({
             return `Yabluzo version ${version} (${commit} at ${branch}) ${process.env.DEV == "true" ? "(development instance)" : ""}.
                     This version is ${versionStatus} compared to the code on [the github repo](https://github.com/NanderTGA/yabluzo).
 
-                    Running [msgroom](https://www.npmjs.com/package/msgroom) v${msgroomVersion}.${msgroomUpdateAvailable}`;
+                    Running [MsgRoom.js](https://nandertga.github.io/msgroom-orm/) v${msgroomVersion}.${msgroomUpdateAvailable}`;
         },
     },
 
@@ -41,7 +41,7 @@ const initialize: ModuleInitializeFunction = client => ({
     source: {
         description: "View Yabluzo's source code.",
         handler    : () => `Yabluzo's source code can be found [here](https://github.com/NanderTGA/yabluzo)
-                            Do you want to make your own bot? Yabluzo uses [msgroom](https://npmjs.com/package/msgroom).`,
+                            Do you want to make your own bot? Yabluzo uses [MsgRoom.js](https://nandertga.github.io/msgroom-orm/).`,
     },
 
     funFact: {
