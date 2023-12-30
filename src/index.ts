@@ -10,8 +10,8 @@ const prefix = process.env.DEV == "true" ? "yd!" : "y!";
 const name = `[${prefix}] Yabluzo${process.env.YABLUZO_API_KEY ? "" : (process.env.DEV == "true" ? " DEV" : "")}`;
 
 const client = new Client(name, prefix, {
-    blockSelf     : true,
-    welcomeMessage: `Hi there! I'm Yabluzo. For a list of commands, send \`${prefix}help\``,
+    blockSelf : true,
+    helpSuffix: "***This bot is a dev instance of Yabluzo, expect bugs and unfinished work!***",
 });
 
 client.commands.isBlocked = {
@@ -28,5 +28,4 @@ await client.loadDirectory(new URL("./modules", import.meta.url));
 console.log("connecting...");
 await client.connect();
 
-if (process.env.DEV == "true") client.sendMessage("This bot is a dev instance of Yabluzo, expect bugs and unfinished work!");
 console.log("Yabluzo has connected to msgroom successfully!");
