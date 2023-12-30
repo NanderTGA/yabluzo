@@ -14,14 +14,6 @@ const client = new Client(name, prefix, {
     helpSuffix: "***This bot is a dev instance of Yabluzo, expect bugs and unfinished work!***",
 });
 
-client.commands.isBlocked = {
-    description: "Checks if the provided (session) ID is blocked.",
-    handler    : (context, userOrSessionID) => {
-        const blocked = client.isBlocked(userOrSessionID, userOrSessionID);
-        return `The ID or session ID \`${userOrSessionID}\` is${blocked ? "" : " not"} blocked.`;
-    },
-};
-
 console.log("Loading modules...");
 await client.loadDirectory(new URL("./modules", import.meta.url));
 
