@@ -1,13 +1,14 @@
 import Client from "msgroom";
 import "dotenv/config";
 
-if (process.env.DEV == "true") {
+const dev = process.env.DEV == "true";
+if (dev) {
     console.info("Bot is running in dev mode!");
     if (process.env.YABLUZO_API_KEY) throw new Error("Please do not use an api key while in dev mode!");
 }
 
-const prefix = process.env.DEV == "true" ? "yd!" : "y!";
-const name = `[${prefix}] Yabluzo${process.env.YABLUZO_API_KEY ? "" : (process.env.DEV == "true" ? " DEV" : "")}`;
+const prefix = dev ? "yd!" : "y!";
+const name = `[${prefix}] Yabluzo${process.env.YABLUZO_API_KEY ? "" : (dev ? " DEV" : "")}`;
 
 const client = new Client(name, prefix, {
     blockSelf : true,
