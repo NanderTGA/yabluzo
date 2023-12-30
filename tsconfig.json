@@ -7,8 +7,13 @@
         "esModuleInterop"    : true,
         "moduleResolution"   : "NodeNext",
         "skipLibCheck"       : true,
-        "outDir"             : "dist",
-        "resolveJsonModule"  : true
+        "outDir"             : "./dist",
+        "resolveJsonModule"  : true,
+        "sourceMap"          : true,
+        "declaration"        : true,
+        "declarationDir"     : "./dist",
+        "declarationMap"     : true,
+        "importHelpers"      : true
     },
     "exclude": [
         "node_modules",
