@@ -12,7 +12,7 @@ const name = `[${prefix}] Yabluzo${process.env.YABLUZO_API_KEY ? "" : (dev ? " D
 
 const client = new Client(name, prefix, {
     blockSelf : true,
-    helpSuffix: "***This bot is a dev instance of Yabluzo, expect bugs and unfinished work!***",
+    helpSuffix: dev ? "***This bot is a dev instance of Yabluzo, expect bugs and unfinished work!***" : "",
 });
 
 console.log("Loading modules...");
