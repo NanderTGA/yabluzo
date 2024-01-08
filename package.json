@@ -34,7 +34,7 @@
     "@ffflorian/icanhazdadjoke": "^2.2.7",
     "dotenv": "^16.3.1",
     "minimal-discord-webhook-node": "^1.0.1",
-    "msgroom": "^2.0.0-66",
+    "msgroom": "^2.0.0-67",
     "octokit": "^3.1.2",
     "random": "^4.1.0",
     "semver": "^7.5.4",
