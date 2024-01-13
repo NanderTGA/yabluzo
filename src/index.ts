@@ -31,7 +31,7 @@ await Promise.all(clients.map( client => client.loadDirectory(new URL("./modules
 
 await Promise.all(clients.map( client => {
     console.log(`Connecting to ${client.server}...`);
-    return client.connect();
+    return client.connect()
+        .then( () => void console.log(`Connected to ${client.server} successfully!`) )
+        .catch( error => void console.error(`Couldn't connect to ${client.server}!`) );
 }));
-
-console.log("Yabluzo has connected to msgroom successfully!");
