@@ -14,15 +14,20 @@ const options: ClientOptions = {
     blockSelf : true,
     helpSuffix: dev ? "***This bot is a dev instance of Yabluzo, expect bugs and unfinished work!***" : "",
 };
-const servers = [
-    "",
-    "wss://msgroom.boomlings.xyz",
+const serversOptions: ClientOptions[] = [
+    {},
+    {
+        server     : "wss://msgroom.boomlings.xyz",
+        authOptions: {
+            loginkey: process.env.MRCS_LOGIN_KEY,
+        },
+    },
 ];
 
-const clients = servers.map( server => {
+const clients = serversOptions.map( serverOptions => {
     return new Client(name, prefix, {
         ...options,
-        server,
+        ...serverOptions,
     });
 });
 
