@@ -22,6 +22,9 @@ const serversOptions: ClientOptions[] = [
             loginkey: process.env.MRCS_LOGIN_KEY,
         },
     },
+    {
+        server: "wss://nandertga.ddns.net:4096",
+    },
 ];
 
 const clients = serversOptions.map( serverOptions => {
