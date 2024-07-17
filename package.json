@@ -37,7 +37,7 @@
     "msgroom": "^3.0.0",
     "octokit": "^3.2.0",
     "random": "^4.1.0",
-    "semver": "^7.6.0",
+    "semver": "^7.6.3",
     "tslib": "^2.6.2"
   },
   "devDependencies": {
