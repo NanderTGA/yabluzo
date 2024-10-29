@@ -24,7 +24,7 @@ const initialize: ModuleInitializeFunction = client => ({
 
             const commit = `[${gitHash}](https://github.com/NanderTGA/yabluzo/commit/${gitHash})`;
             const branch = `[${gitBranch}](https://github.com/NanderTGA/yabluzo/tree/${gitBranch})`;
-            const msgroomUpdateAvailable = msgroomStatus.upToDateStatus == "outdated" ? `\nThere is a new version of msgroom available! (v${msgroomStatus.latestVersion})` : "";
+            const msgroomUpdateAvailable = msgroomStatus.upToDateStatus == "outdated" ? `\nThere is a new version of MsgRoom.js available! (v${msgroomStatus.latestVersion})` : "";
             
             return `Yabluzo version ${version} (${commit} at ${branch}) ${process.env.DEV == "true" ? "(development instance)" : ""}.
                     This version is ${versionStatus} compared to the code on [the github repo](https://github.com/NanderTGA/yabluzo).
