@@ -43,13 +43,6 @@ const initialize: ModuleInitializeFunction = client => ({
         handler    : () => `Yabluzo's source code can be found [here](https://github.com/NanderTGA/yabluzo)
                             Do you want to make your own bot? Yabluzo uses [MsgRoom.js](https://nandertga.github.io/msgroom-orm/).`,
     },
-
-    funFact: {
-        description: "Tells you a fun fact.",
-        handler    : () => `**Who is SpamHook [BOT]?**
-                            [SpamHook](https://replit.com/@replDestroyer1234/spamhook#index.js) is a bot created by æ to log all messages to a discord server of them.
-                            It is hosted on [Replit](https://replit.com) and frequently stops because of Replit automatically stopping REPLs after a certain period of time.`,
-    },
 } satisfies CommandMap);
 
 export default initialize;
