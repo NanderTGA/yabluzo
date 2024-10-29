@@ -11,7 +11,7 @@ const initialize: ModuleInitializeFunction = client => ({
     about: {
         description: "Tells you more about this bot.",
         handler    : () => `I'm Yabluzo, a bot developed by [NanderTGA](https://nandertga.ddns.net).
-                            Do you have any suggestions? Feel free to let us know in our Discord server or open an issue!`
+                            Do you have any suggestions? Feel free to let us know in our [Discord server](https://discord.com/invite/YRHpTvV) or open an issue!`
         + (process.env.DEV == "true" ? "\n**This bot is a development instance of Yabluzo, expect bugs and unfinished work!**" : ""),
     },
 
